@@ -1,4 +1,3 @@
-index.html
 # Academic & Executive Web Portal — Dr. N. Ch. Ravi
 
 A modern, responsive, and high-performance academic portfolio and course hub built for **Dr. N. Ch. Ravi**, Professor in the Department of Computer Science & Engineering at **ACE Engineering College, Hyderabad**.
