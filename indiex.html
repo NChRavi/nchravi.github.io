@@ -1,0 +1,815 @@
+<!DOCTYPE html>
+<html lang="en" class="scroll-smooth">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dr. N. Ch. Ravi | Professor of Computer Science & Engineering</title>
+    
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        tailwind.config = {
+            darkMode: 'class',
+            theme: {
+                extend: {
+                    colors: {
+                        brand: {
+                            50: '#f0f7ff',
+                            100: '#e0effe',
+                            500: '#0284c7',
+                            600: '#0265d2',
+                            800: '#0f2b48',
+                            900: '#07162c',
+                            gold: '#f59e0b'
+                        }
+                    },
+                    fontFamily: {
+                        sans: ['Plus Jakarta Sans', 'Inter', 'sans-serif'],
+                        serif: ['Playfair Display', 'Georgia', 'serif']
+                    }
+                }
+            }
+        }
+    </script>
+    
+    <!-- Google Fonts & FontAwesome -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,600;0,700;1,400&family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    
+    <style>
+        .glass-card {
+            background: rgba(255, 255, 255, 0.85);
+            backdrop-filter: blur(12px);
+        }
+        .dark .glass-card {
+            background: rgba(15, 23, 42, 0.85);
+            backdrop-filter: blur(12px);
+        }
+        .gradient-border {
+            position: relative;
+            background-clip: padding-box;
+            border: 1px solid transparent;
+        }
+        .gradient-border::before {
+            content: '';
+            position: absolute;
+            top: 0; right: 0; bottom: 0; left: 0;
+            z-index: -1;
+            margin: -1px;
+            border-radius: inherit;
+            background: linear-gradient(to bottom right, #0284c7, #f59e0b, transparent);
+        }
+    </style>
+</head>
+<body class="bg-slate-50 text-slate-900 dark:bg-slate-950 dark:text-slate-100 font-sans antialiased min-h-screen flex flex-col transition-colors duration-300">
+
+    <!-- Header / Navbar -->
+    <header class="sticky top-0 z-40 w-full border-b border-slate-200/80 dark:border-slate-800/80 glass-card">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex items-center justify-between h-20">
+                
+                <!-- Brand Identity -->
+                <div class="flex items-center gap-3 cursor-pointer" onclick="switchTab('home')">
+                    <div class="w-11 h-11 rounded-xl bg-gradient-to-tr from-brand-800 to-brand-500 text-white flex items-center justify-center font-black text-xl shadow-lg ring-2 ring-brand-500/20">
+                        NR
+                    </div>
+                    <div>
+                        <span class="font-extrabold text-lg text-slate-900 dark:text-white tracking-tight block leading-tight">Dr. N. Ch. Ravi</span>
+                        <span class="text-xs font-semibold text-brand-600 dark:text-brand-500 tracking-wide uppercase">Professor • CSE Dept</span>
+                    </div>
+                </div>
+
+                <!-- Navigation Links -->
+                <nav class="hidden md:flex items-center gap-1 bg-slate-100/80 dark:bg-slate-900/80 p-1.5 rounded-full border border-slate-200/60 dark:border-slate-800/60 text-xs font-bold">
+                    <button onclick="switchTab('home')" id="nav-home" class="nav-btn px-5 py-2 rounded-full transition-all duration-200 text-slate-700 dark:text-slate-300 hover:text-slate-900">Home</button>
+                    <button onclick="switchTab('courses')" id="nav-courses" class="nav-btn px-5 py-2 rounded-full transition-all duration-200 text-slate-700 dark:text-slate-300 hover:text-slate-900">Courses</button>
+                    <button onclick="switchTab('textbooks')" id="nav-textbooks" class="nav-btn px-5 py-2 rounded-full transition-all duration-200 text-slate-700 dark:text-slate-300 hover:text-slate-900">Textbooks</button>
+                    <button onclick="switchTab('resources')" id="nav-resources" class="nav-btn px-5 py-2 rounded-full transition-all duration-200 text-slate-700 dark:text-slate-300 hover:text-slate-900">Resources</button>
+                    <button onclick="switchTab('contact')" id="nav-contact" class="nav-btn px-5 py-2 rounded-full transition-all duration-200 text-slate-700 dark:text-slate-300 hover:text-slate-900">Contact</button>
+                </nav>
+
+                <!-- Right Actions -->
+                <div class="flex items-center gap-3">
+                    <button id="theme-toggle" class="p-2.5 rounded-full bg-slate-100 dark:bg-slate-800 text-slate-600 dark:text-slate-300 hover:text-brand-500 transition-colors" title="Toggle Theme">
+                        <i class="fa-solid fa-moon dark:hidden"></i>
+                        <i class="fa-solid fa-sun hidden dark:block text-brand-gold"></i>
+                    </button>
+
+                    <button onclick="switchTab('contact')" class="hidden sm:inline-flex items-center gap-2 px-4 py-2 rounded-full bg-brand-800 hover:bg-brand-900 dark:bg-brand-500 dark:hover:bg-brand-600 text-white font-semibold text-xs tracking-wide shadow-md transition-all">
+                        <i class="fa-regular fa-paper-plane"></i> Get in Touch
+                    </button>
+
+                    <button id="mobile-menu-btn" class="md:hidden p-2 rounded-lg text-slate-600 dark:text-slate-300">
+                        <i class="fa-solid fa-bars text-xl"></i>
+                    </button>
+                </div>
+            </div>
+        </div>
+
+        <!-- Mobile Drawer -->
+        <div id="mobile-menu" class="hidden md:hidden border-t border-slate-200 dark:border-slate-800 bg-slate-50 dark:bg-slate-900 px-4 pt-3 pb-6 space-y-2 text-sm font-semibold">
+            <button onclick="switchTab('home'); toggleMobileMenu();" class="block w-full text-left px-4 py-2 rounded-lg hover:bg-slate-200 dark:hover:bg-slate-800">Home</button>
+            <button onclick="switchTab('courses'); toggleMobileMenu();" class="block w-full text-left px-4 py-2 rounded-lg hover:bg-slate-200 dark:hover:bg-slate-800">Courses</button>
+            <button onclick="switchTab('textbooks'); toggleMobileMenu();" class="block w-full text-left px-4 py-2 rounded-lg hover:bg-slate-200 dark:hover:bg-slate-800">Textbooks</button>
+            <button onclick="switchTab('resources'); toggleMobileMenu();" class="block w-full text-left px-4 py-2 rounded-lg hover:bg-slate-200 dark:hover:bg-slate-800">Resources</button>
+            <button onclick="switchTab('contact'); toggleMobileMenu();" class="block w-full text-left px-4 py-2 rounded-lg hover:bg-slate-200 dark:hover:bg-slate-800">Contact</button>
+        </div>
+    </header>
+
+    <!-- Main Content Area -->
+    <main class="flex-grow max-w-7xl w-full mx-auto px-4 sm:px-6 lg:px-8 py-10">
+
+        <!-- TAB 1: HOME -->
+        <section id="tab-home" class="tab-content transition-all duration-300 space-y-12">
+            
+            <!-- Hero Block -->
+            <div class="relative bg-gradient-to-br from-brand-900 via-brand-800 to-slate-900 text-white rounded-3xl p-8 sm:p-12 overflow-hidden shadow-2xl border border-slate-800">
+                <div class="absolute -right-20 -bottom-20 w-96 h-96 rounded-full bg-brand-500/10 blur-3xl pointer-events-none"></div>
+                <div class="relative z-10 flex flex-col lg:flex-row gap-10 items-center">
+                    
+                    <div class="relative group">
+                        <div class="absolute -inset-1 bg-gradient-to-r from-brand-500 to-brand-gold rounded-2xl blur opacity-30 group-hover:opacity-60 transition duration-500"></div>
+                        <img src="https://www.aceec.ac.in/wp-content/uploads/2024/07/Dr-N-Ch-Ravi.jpg" 
+                             alt="Dr. N. Ch. Ravi" 
+                             class="relative w-48 h-56 sm:w-60 sm:h-72 object-cover rounded-2xl shadow-2xl border-2 border-white/20"
+                             onerror="this.onerror=null; this.src='https://placehold.co/400x500/0f2b48/ffffff?text=Dr.+N.+Ch.+Ravi';">
+                    </div>
+
+                    <div class="space-y-4 flex-1 text-center lg:text-left">
+                        <div class="inline-flex items-center gap-2 px-3 py-1 rounded-full text-xs font-semibold bg-white/10 text-brand-gold border border-white/10">
+                            <i class="fa-solid fa-building-columns text-xs"></i> ACE Engineering College, Hyderabad
+                        </div>
+                        <h1 class="text-3xl sm:text-5xl font-extrabold tracking-tight font-serif text-white">
+                            Dr. N. Ch. Ravi
+                        </h1>
+                        <p class="text-base sm:text-lg text-brand-100 font-medium">
+                            Senior Professor • Department of Computer Science & Engineering
+                        </p>
+                        <p class="text-slate-300 text-xs sm:text-sm leading-relaxed max-w-3xl">
+                            Distinguished academician and industry consultant with 30+ cumulative years of expertise (25 years in university education and leadership, 5.5 years as Senior Tech Strategist at Infistech Technologies). Specialized in Quantum AI, Agentic Systems, Cloud Security, Blockchain, and Machine Learning models for Vulnerability Mitigation.
+                        </p>
+                        
+                        <div class="flex flex-wrap gap-3 justify-center lg:justify-start pt-2">
+                            <button onclick="switchTab('courses')" class="px-6 py-3 rounded-xl bg-brand-500 hover:bg-brand-600 text-white font-bold text-xs shadow-lg shadow-brand-500/30 transition flex items-center gap-2">
+                                <i class="fa-solid fa-graduation-cap"></i> View Active Courses
+                            </button>
+                            <button onclick="switchTab('contact')" class="px-6 py-3 rounded-xl bg-white/10 hover:bg-white/20 text-white font-bold text-xs backdrop-blur-md transition flex items-center gap-2">
+                                <i class="fa-solid fa-envelope"></i> Contact Office
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Experience Metrics Grid -->
+            <div class="grid grid-cols-2 md:grid-cols-4 gap-4">
+                <div class="p-6 rounded-2xl bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 shadow-sm text-center">
+                    <span class="block text-3xl sm:text-4xl font-extrabold text-brand-600 dark:text-brand-500">30+</span>
+                    <span class="text-xs font-bold text-slate-500 uppercase tracking-wider mt-1 block">Years Experience</span>
+                </div>
+                <div class="p-6 rounded-2xl bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 shadow-sm text-center">
+                    <span class="block text-3xl sm:text-4xl font-extrabold text-brand-gold">25</span>
+                    <span class="text-xs font-bold text-slate-500 uppercase tracking-wider mt-1 block">Academic Years</span>
+                </div>
+                <div class="p-6 rounded-2xl bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 shadow-sm text-center">
+                    <span class="block text-3xl sm:text-4xl font-extrabold text-emerald-500">5.5</span>
+                    <span class="text-xs font-bold text-slate-500 uppercase tracking-wider mt-1 block">Years Industry Exp</span>
+                </div>
+                <div class="p-6 rounded-2xl bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 shadow-sm text-center">
+                    <span class="block text-3xl sm:text-4xl font-extrabold text-purple-500">5</span>
+                    <span class="text-xs font-bold text-slate-500 uppercase tracking-wider mt-1 block">Active Courses</span>
+                </div>
+            </div>
+
+            <!-- Content Split Section -->
+            <div class="grid grid-cols-1 lg:grid-cols-3 gap-8">
+                
+                <!-- Main Column -->
+                <div class="lg:col-span-2 space-y-8">
+                    
+                    <!-- Qualifications Panel -->
+                    <div class="bg-white dark:bg-slate-900 p-6 sm:p-8 rounded-3xl border border-slate-200 dark:border-slate-800 shadow-sm">
+                        <h2 class="text-xl font-bold font-serif mb-6 flex items-center gap-3 text-slate-900 dark:text-white border-b border-slate-100 dark:border-slate-800 pb-4">
+                            <i class="fa-solid fa-user-graduate text-brand-500"></i> Academic Qualifications
+                        </h2>
+                        <div class="space-y-4">
+                            <div class="p-4 rounded-xl bg-slate-50 dark:bg-slate-800/50 border-l-4 border-brand-500">
+                                <h3 class="font-bold text-sm sm:text-base text-slate-900 dark:text-white">Ph.D. in Computer Science & Engineering</h3>
+                                <p class="text-xs font-semibold text-brand-600 dark:text-brand-500">JNTU Hyderabad (JNTUH)</p>
+                                <p class="text-xs text-slate-500 dark:text-slate-400 mt-1">Dissertation: SQL Injection Attack Detection & Prevention using Deep Learning Architectures (LSTM & BERT).</p>
+                            </div>
+                            <div class="p-4 rounded-xl bg-slate-50 dark:bg-slate-800/50 border-l-4 border-brand-gold">
+                                <h3 class="font-bold text-sm sm:text-base text-slate-900 dark:text-white">M.Tech in Computer Science & Engineering</h3>
+                                <p class="text-xs font-semibold text-brand-gold">Acharya Nagarjuna University (ANU)</p>
+                            </div>
+                            <div class="p-4 rounded-xl bg-slate-50 dark:bg-slate-800/50 border-l-4 border-emerald-500">
+                                <h3 class="font-bold text-sm sm:text-base text-slate-900 dark:text-white">B.Tech in Computer Science & Engineering</h3>
+                                <p class="text-xs font-semibold text-emerald-500">JNTU Hyderabad (JNTUH)</p>
+                            </div>
+                            <div class="p-4 rounded-xl bg-slate-50 dark:bg-slate-800/50 border-l-4 border-purple-500">
+                                <h3 class="font-bold text-sm sm:text-base text-slate-900 dark:text-white">M.Sc in Physics (Electronics Specialization)</h3>
+                                <p class="text-xs font-semibold text-purple-500">Kakatiya University</p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Centers of Excellence -->
+                    <div class="bg-white dark:bg-slate-900 p-6 sm:p-8 rounded-3xl border border-slate-200 dark:border-slate-800 shadow-sm">
+                        <h2 class="text-xl font-bold font-serif mb-6 flex items-center gap-3 text-slate-900 dark:text-white border-b border-slate-100 dark:border-slate-800 pb-4">
+                            <i class="fa-solid fa-award text-brand-gold"></i> Centers of Excellence Leadership
+                        </h2>
+                        <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                            <div class="p-5 rounded-2xl bg-slate-50 dark:bg-slate-800/40 border border-slate-200 dark:border-slate-700/50">
+                                <div class="flex items-center gap-3 mb-2">
+                                    <i class="fa-brands fa-microsoft text-blue-500 text-xl"></i>
+                                    <h4 class="font-bold text-sm">Microsoft CoE</h4>
+                                </div>
+                                <p class="text-xs text-slate-500 dark:text-slate-400">Azure Cloud Architecture, GenAI, and Full Stack DevOps.</p>
+                            </div>
+                            <div class="p-5 rounded-2xl bg-slate-50 dark:bg-slate-800/40 border border-slate-200 dark:border-slate-700/50">
+                                <div class="flex items-center gap-3 mb-2">
+                                    <i class="fa-solid fa-server text-purple-500 text-xl"></i>
+                                    <h4 class="font-bold text-sm">IBM CoE</h4>
+                                </div>
+                                <p class="text-xs text-slate-500 dark:text-slate-400">Quantum Computing with IBM Qiskit and Big Data Analytics.</p>
+                            </div>
+                            <div class="p-5 rounded-2xl bg-slate-50 dark:bg-slate-800/40 border border-slate-200 dark:border-slate-700/50">
+                                <div class="flex items-center gap-3 mb-2">
+                                    <i class="fa-solid fa-network-wired text-emerald-500 text-xl"></i>
+                                    <h4 class="font-bold text-sm">CISCO Networking</h4>
+                                </div>
+                                <p class="text-xs text-slate-500 dark:text-slate-400">Cybersecurity Defense Protocols, Firewalls & Networks.</p>
+                            </div>
+                            <div class="p-5 rounded-2xl bg-slate-50 dark:bg-slate-800/40 border border-slate-200 dark:border-slate-700/50">
+                                <div class="flex items-center gap-3 mb-2">
+                                    <i class="fa-solid fa-microchip text-brand-gold text-xl"></i>
+                                    <h4 class="font-bold text-sm">Texas Inst. & AMD</h4>
+                                </div>
+                                <p class="text-xs text-slate-500 dark:text-slate-400">VLSI Chip Design, Embedded Grids, and Edge AI.</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Sidebar -->
+                <div class="space-y-8">
+                    
+                    <!-- Research Metrics Card -->
+                    <div class="bg-white dark:bg-slate-900 p-6 rounded-3xl border border-slate-200 dark:border-slate-800 shadow-sm">
+                        <div class="flex items-center justify-between border-b border-slate-100 dark:border-slate-800 pb-4 mb-4">
+                            <h3 class="font-bold text-sm text-slate-900 dark:text-white flex items-center gap-2">
+                                <i class="fa-solid fa-chart-line text-brand-500"></i> Research Impact
+                            </h3>
+                            <span class="text-[10px] uppercase font-black px-2 py-0.5 rounded bg-brand-500/10 text-brand-500 border border-brand-500/20">Scopus</span>
+                        </div>
+                        <div class="space-y-3">
+                            <div class="flex justify-between items-center p-3 rounded-xl bg-slate-50 dark:bg-slate-800/50 text-xs">
+                                <span class="text-slate-500">Publications</span>
+                                <span class="font-bold text-slate-900 dark:text-white">12 (8 Scopus)</span>
+                            </div>
+                            <div class="flex justify-between items-center p-3 rounded-xl bg-slate-50 dark:bg-slate-800/50 text-xs">
+                                <span class="text-slate-500">Total Citations</span>
+                                <span class="font-bold text-slate-900 dark:text-white">294+</span>
+                            </div>
+                            <div class="flex justify-between items-center p-3 rounded-xl bg-slate-50 dark:bg-slate-800/50 text-xs">
+                                <span class="text-slate-500">h-index</span>
+                                <span class="font-bold text-slate-900 dark:text-white">4</span>
+                            </div>
+                            <div class="flex justify-between items-center p-3 rounded-xl bg-slate-50 dark:bg-slate-800/50 text-xs">
+                                <span class="text-slate-500">Patents Published</span>
+                                <span class="font-bold text-slate-900 dark:text-white">4</span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Institution Card -->
+                    <div class="bg-slate-900 text-white p-6 rounded-3xl border border-slate-800 shadow-sm space-y-3">
+                        <h3 class="font-bold text-sm text-brand-gold flex items-center gap-2">
+                            <i class="fa-solid fa-building-columns"></i> ACE Engineering College
+                        </h3>
+                        <p class="text-xs text-slate-300 leading-relaxed">
+                            Ankushapur, Ghatkesar Mandal, Medchal District, Telangana - 501301. Autonomous Institution, Approved by AICTE, Affiliated to JNTUH.
+                        </p>
+                        <div class="pt-2 border-t border-slate-800 space-y-2 text-xs text-slate-400">
+                            <div class="flex items-center gap-2">
+                                <i class="fa-solid fa-location-dot text-brand-500"></i> Ghatkesar, Medchal Dist.
+                            </div>
+                            <div class="flex items-center gap-2">
+                                <i class="fa-solid fa-globe text-brand-500"></i>
+                                <a href="https://www.aceec.ac.in" target="_blank" class="hover:underline text-brand-500">www.aceec.ac.in</a>
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+
+            </div>
+        </section>
+
+        <!-- TAB 2: COURSES -->
+        <section id="tab-courses" class="tab-content hidden transition-all duration-300 space-y-8">
+            <div class="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4 bg-white dark:bg-slate-900 p-6 rounded-3xl border border-slate-200 dark:border-slate-800">
+                <div>
+                    <h1 class="text-2xl font-bold font-serif text-slate-900 dark:text-white">Academic Curriculum</h1>
+                    <p class="text-xs text-slate-500 mt-1">Undergraduate and Postgraduate Courses for current academic terms.</p>
+                </div>
+                <div class="flex items-center bg-slate-100 dark:bg-slate-800 p-1 rounded-2xl text-xs font-bold">
+                    <button onclick="filterSemester('all')" id="filter-all" class="semester-filter-btn px-4 py-2 rounded-xl transition bg-brand-500 text-white shadow">All</button>
+                    <button onclick="filterSemester('sem1')" id="filter-sem1" class="semester-filter-btn px-4 py-2 rounded-xl transition text-slate-600 dark:text-slate-400">Semester I</button>
+                    <button onclick="filterSemester('sem2')" id="filter-sem2" class="semester-filter-btn px-4 py-2 rounded-xl transition text-slate-600 dark:text-slate-400">Semester II</button>
+                </div>
+            </div>
+
+            <!-- Grid -->
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-6" id="courses-grid">
+                
+                <!-- Course 1 -->
+                <div class="course-card bg-white dark:bg-slate-900 p-6 rounded-3xl border border-slate-200 dark:border-slate-800 shadow-sm flex flex-col justify-between space-y-4" data-semester="sem1">
+                    <div>
+                        <div class="flex items-center justify-between mb-3">
+                            <span class="px-3 py-1 rounded-full text-[10px] font-extrabold bg-brand-500/10 text-brand-500 border border-brand-500/20">CSE 411</span>
+                            <span class="text-xs text-slate-400 font-semibold">Semester I</span>
+                        </div>
+                        <h3 class="text-lg font-bold text-slate-900 dark:text-white">Quantum AI & Machine Learning</h3>
+                        <p class="text-xs text-slate-500 dark:text-slate-400 mt-2 leading-relaxed">
+                            Quantum circuits, IBM Qiskit simulation, variational quantum eigensolvers, and hybrid quantum-classical neural network architectures.
+                        </p>
+                        <div class="grid grid-cols-2 gap-2 text-xs text-slate-500 mt-4 bg-slate-50 dark:bg-slate-800/40 p-3 rounded-2xl">
+                            <div><strong class="text-slate-700 dark:text-slate-300">Schedule:</strong> Mon/Wed 10:00 AM</div>
+                            <div><strong class="text-slate-700 dark:text-slate-300">Room:</strong> IBM CoE Lab</div>
+                            <div><strong class="text-slate-700 dark:text-slate-300">Credits:</strong> 4.0 Units</div>
+                            <div><strong class="text-slate-700 dark:text-slate-300">Hours:</strong> Tue 2:00 PM</div>
+                        </div>
+                    </div>
+                    <div class="pt-4 border-t border-slate-100 dark:border-slate-800 flex items-center justify-between">
+                        <button onclick="openSyllabusModal('course1')" class="text-xs font-bold text-brand-500 hover:underline flex items-center gap-1">
+                            <i class="fa-solid fa-book-open"></i> Syllabus
+                        </button>
+                        <button onclick="triggerDownload('Quantum_AI_Slides.pdf')" class="px-3 py-1.5 text-xs bg-slate-100 dark:bg-slate-800 hover:bg-slate-200 text-slate-700 dark:text-slate-300 rounded-lg font-bold transition">
+                            <i class="fa-solid fa-download"></i> Slides
+                        </button>
+                    </div>
+                </div>
+
+                <!-- Course 2 -->
+                <div class="course-card bg-white dark:bg-slate-900 p-6 rounded-3xl border border-slate-200 dark:border-slate-800 shadow-sm flex flex-col justify-between space-y-4" data-semester="sem1">
+                    <div>
+                        <div class="flex items-center justify-between mb-3">
+                            <span class="px-3 py-1 rounded-full text-[10px] font-extrabold bg-brand-500/10 text-brand-500 border border-brand-500/20">CSE 423</span>
+                            <span class="text-xs text-slate-400 font-semibold">Semester I</span>
+                        </div>
+                        <h3 class="text-lg font-bold text-slate-900 dark:text-white">Web Security & Blockchain</h3>
+                        <p class="text-xs text-slate-500 dark:text-slate-400 mt-2 leading-relaxed">
+                            SQL injection mitigation with LSTM/BERT models, OWASP Top 10 web security controls, smart contract audits, and Ethereum consensus.
+                        </p>
+                        <div class="grid grid-cols-2 gap-2 text-xs text-slate-500 mt-4 bg-slate-50 dark:bg-slate-800/40 p-3 rounded-2xl">
+                            <div><strong class="text-slate-700 dark:text-slate-300">Schedule:</strong> Tue/Thu 09:00 AM</div>
+                            <div><strong class="text-slate-700 dark:text-slate-300">Room:</strong> CISCO Lab</div>
+                            <div><strong class="text-slate-700 dark:text-slate-300">Credits:</strong> 4.0 Units</div>
+                            <div><strong class="text-slate-700 dark:text-slate-300">Hours:</strong> Wed 3:00 PM</div>
+                        </div>
+                    </div>
+                    <div class="pt-4 border-t border-slate-100 dark:border-slate-800 flex items-center justify-between">
+                        <button onclick="openSyllabusModal('course2')" class="text-xs font-bold text-brand-500 hover:underline flex items-center gap-1">
+                            <i class="fa-solid fa-book-open"></i> Syllabus
+                        </button>
+                        <button onclick="triggerDownload('WebSecurity_Guide.pdf')" class="px-3 py-1.5 text-xs bg-slate-100 dark:bg-slate-800 hover:bg-slate-200 text-slate-700 dark:text-slate-300 rounded-lg font-bold transition">
+                            <i class="fa-solid fa-download"></i> Guide
+                        </button>
+                    </div>
+                </div>
+
+                <!-- Course 3 -->
+                <div class="course-card bg-white dark:bg-slate-900 p-6 rounded-3xl border border-slate-200 dark:border-slate-800 shadow-sm flex flex-col justify-between space-y-4" data-semester="sem1">
+                    <div>
+                        <div class="flex items-center justify-between mb-3">
+                            <span class="px-3 py-1 rounded-full text-[10px] font-extrabold bg-brand-500/10 text-brand-500 border border-brand-500/20">CSE 435</span>
+                            <span class="text-xs text-slate-400 font-semibold">Semester I</span>
+                        </div>
+                        <h3 class="text-lg font-bold text-slate-900 dark:text-white">AI Full Stack & Agentic Systems</h3>
+                        <p class="text-xs text-slate-500 dark:text-slate-400 mt-2 leading-relaxed">
+                            MERN/MEAN stack architecture integrated with LangChain multi-agent orchestration, vector embeddings, and autonomous agent loops.
+                        </p>
+                        <div class="grid grid-cols-2 gap-2 text-xs text-slate-500 mt-4 bg-slate-50 dark:bg-slate-800/40 p-3 rounded-2xl">
+                            <div><strong class="text-slate-700 dark:text-slate-300">Schedule:</strong> Fri 01:00 PM</div>
+                            <div><strong class="text-slate-700 dark:text-slate-300">Room:</strong> MS CoE Lab</div>
+                            <div><strong class="text-slate-700 dark:text-slate-300">Credits:</strong> 3.0 Units</div>
+                            <div><strong class="text-slate-700 dark:text-slate-300">Hours:</strong> Thu 2:00 PM</div>
+                        </div>
+                    </div>
+                    <div class="pt-4 border-t border-slate-100 dark:border-slate-800 flex items-center justify-between">
+                        <button onclick="openSyllabusModal('course3')" class="text-xs font-bold text-brand-500 hover:underline flex items-center gap-1">
+                            <i class="fa-solid fa-book-open"></i> Syllabus
+                        </button>
+                        <button onclick="triggerDownload('Agentic_FullStack.pdf')" class="px-3 py-1.5 text-xs bg-slate-100 dark:bg-slate-800 hover:bg-slate-200 text-slate-700 dark:text-slate-300 rounded-lg font-bold transition">
+                            <i class="fa-solid fa-download"></i> Code Snippets
+                        </button>
+                    </div>
+                </div>
+
+                <!-- Course 4 -->
+                <div class="course-card bg-white dark:bg-slate-900 p-6 rounded-3xl border border-slate-200 dark:border-slate-800 shadow-sm flex flex-col justify-between space-y-4" data-semester="sem2">
+                    <div>
+                        <div class="flex items-center justify-between mb-3">
+                            <span class="px-3 py-1 rounded-full text-[10px] font-extrabold bg-brand-gold/10 text-brand-gold border border-brand-gold/20">CSE 452</span>
+                            <span class="text-xs text-slate-400 font-semibold">Semester II</span>
+                        </div>
+                        <h3 class="text-lg font-bold text-slate-900 dark:text-white">VLSI Design & LLM Tuning</h3>
+                        <p class="text-xs text-slate-500 dark:text-slate-400 mt-2 leading-relaxed">
+                            CMOS digital logic design combined with fine-tuning large language models using LoRA/QLoRA for hardware specification generation.
+                        </p>
+                        <div class="grid grid-cols-2 gap-2 text-xs text-slate-500 mt-4 bg-slate-50 dark:bg-slate-800/40 p-3 rounded-2xl">
+                            <div><strong class="text-slate-700 dark:text-slate-300">Schedule:</strong> Mon/Wed 02:00 PM</div>
+                            <div><strong class="text-slate-700 dark:text-slate-300">Room:</strong> AMD CoE Lab</div>
+                            <div><strong class="text-slate-700 dark:text-slate-300">Credits:</strong> 4.0 Units</div>
+                            <div><strong class="text-slate-700 dark:text-slate-300">Hours:</strong> Fri 10:00 AM</div>
+                        </div>
+                    </div>
+                    <div class="pt-4 border-t border-slate-100 dark:border-slate-800 flex items-center justify-between">
+                        <button onclick="openSyllabusModal('course4')" class="text-xs font-bold text-brand-500 hover:underline flex items-center gap-1">
+                            <i class="fa-solid fa-book-open"></i> Syllabus
+                        </button>
+                        <button onclick="triggerDownload('VLSI_LLM_Manual.pdf')" class="px-3 py-1.5 text-xs bg-slate-100 dark:bg-slate-800 hover:bg-slate-200 text-slate-700 dark:text-slate-300 rounded-lg font-bold transition">
+                            <i class="fa-solid fa-download"></i> Manual
+                        </button>
+                    </div>
+                </div>
+
+                <!-- Course 5 -->
+                <div class="course-card bg-white dark:bg-slate-900 p-6 rounded-3xl border border-slate-200 dark:border-slate-800 shadow-sm flex flex-col justify-between space-y-4" data-semester="sem2">
+                    <div>
+                        <div class="flex items-center justify-between mb-3">
+                            <span class="px-3 py-1 rounded-full text-[10px] font-extrabold bg-brand-gold/10 text-brand-gold border border-brand-gold/20">CSE 468</span>
+                            <span class="text-xs text-slate-400 font-semibold">Semester II</span>
+                        </div>
+                        <h3 class="text-lg font-bold text-slate-900 dark:text-white">Smart Grid & EV Systems</h3>
+                        <p class="text-xs text-slate-500 dark:text-slate-400 mt-2 leading-relaxed">
+                            IoT-enabled smart grid telemetry, microgrid optimization algorithms, and EV charging station load balancing models.
+                        </p>
+                        <div class="grid grid-cols-2 gap-2 text-xs text-slate-500 mt-4 bg-slate-50 dark:bg-slate-800/40 p-3 rounded-2xl">
+                            <div><strong class="text-slate-700 dark:text-slate-300">Schedule:</strong> Tue/Thu 11:00 AM</div>
+                            <div><strong class="text-slate-700 dark:text-slate-300">Room:</strong> Texas Inst Lab</div>
+                            <div><strong class="text-slate-700 dark:text-slate-300">Credits:</strong> 3.0 Units</div>
+                            <div><strong class="text-slate-700 dark:text-slate-300">Hours:</strong> Mon 4:00 PM</div>
+                        </div>
+                    </div>
+                    <div class="pt-4 border-t border-slate-100 dark:border-slate-800 flex items-center justify-between">
+                        <button onclick="openSyllabusModal('course5')" class="text-xs font-bold text-brand-500 hover:underline flex items-center gap-1">
+                            <i class="fa-solid fa-book-open"></i> Syllabus
+                        </button>
+                        <button onclick="triggerDownload('SmartGrid_Notes.pdf')" class="px-3 py-1.5 text-xs bg-slate-100 dark:bg-slate-800 hover:bg-slate-200 text-slate-700 dark:text-slate-300 rounded-lg font-bold transition">
+                            <i class="fa-solid fa-download"></i> Notes
+                        </button>
+                    </div>
+                </div>
+
+            </div>
+        </section>
+
+        <!-- TAB 3: TEXTBOOKS -->
+        <section id="tab-textbooks" class="tab-content hidden transition-all duration-300 space-y-6">
+            <div class="bg-white dark:bg-slate-900 p-6 rounded-3xl border border-slate-200 dark:border-slate-800">
+                <h1 class="text-2xl font-bold font-serif text-slate-900 dark:text-white">Recommended Textbooks & Publications</h1>
+                <p class="text-xs text-slate-500 mt-1">Core reference books authored and recommended for academic modules.</p>
+            </div>
+
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+                
+                <div class="bg-white dark:bg-slate-900 p-6 rounded-3xl border border-slate-200 dark:border-slate-800 shadow-sm flex flex-col justify-between">
+                    <div>
+                        <div class="w-12 h-12 rounded-2xl bg-brand-500/10 text-brand-500 flex items-center justify-center font-bold text-xl mb-4">
+                            <i class="fa-solid fa-book"></i>
+                        </div>
+                        <h3 class="font-bold text-base text-slate-900 dark:text-white">Quantum Artificial Intelligence</h3>
+                        <p class="text-xs font-semibold text-brand-500 mt-0.5">Author: Dr. N. Ch. Ravi</p>
+                        <p class="text-xs text-slate-500 dark:text-slate-400 mt-3 leading-relaxed">
+                            Comprehensive foundational text covering quantum computing principles, qubit manipulation, and hybrid ML models.
+                        </p>
+                    </div>
+                    <button onclick="triggerDownload('Book_Quantum_AI.pdf')" class="mt-6 w-full py-2.5 rounded-xl bg-slate-100 dark:bg-slate-800 hover:bg-slate-200 text-xs font-bold text-slate-800 dark:text-slate-200 transition flex items-center justify-center gap-2">
+                        <i class="fa-solid fa-file-pdf"></i> Download Sample PDF
+                    </button>
+                </div>
+
+                <div class="bg-white dark:bg-slate-900 p-6 rounded-3xl border border-slate-200 dark:border-slate-800 shadow-sm flex flex-col justify-between">
+                    <div>
+                        <div class="w-12 h-12 rounded-2xl bg-brand-gold/10 text-brand-gold flex items-center justify-center font-bold text-xl mb-4">
+                            <i class="fa-solid fa-shield-halved"></i>
+                        </div>
+                        <h3 class="font-bold text-base text-slate-900 dark:text-white">Deep Learning in Web Security</h3>
+                        <p class="text-xs font-semibold text-brand-gold mt-0.5">Author: Dr. N. Ch. Ravi</p>
+                        <p class="text-xs text-slate-500 dark:text-slate-400 mt-3 leading-relaxed">
+                            In-depth analysis of LSTM and BERT network applications for proactive web application vulnerability detection.
+                        </p>
+                    </div>
+                    <button onclick="triggerDownload('Book_Web_Security.pdf')" class="mt-6 w-full py-2.5 rounded-xl bg-slate-100 dark:bg-slate-800 hover:bg-slate-200 text-xs font-bold text-slate-800 dark:text-slate-200 transition flex items-center justify-center gap-2">
+                        <i class="fa-solid fa-file-pdf"></i> Download Sample PDF
+                    </button>
+                </div>
+
+                <div class="bg-white dark:bg-slate-900 p-6 rounded-3xl border border-slate-200 dark:border-slate-800 shadow-sm flex flex-col justify-between">
+                    <div>
+                        <div class="w-12 h-12 rounded-2xl bg-emerald-500/10 text-emerald-500 flex items-center justify-center font-bold text-xl mb-4">
+                            <i class="fa-solid fa-robot"></i>
+                        </div>
+                        <h3 class="font-bold text-base text-slate-900 dark:text-white">Agentic AI Architecture</h3>
+                        <p class="text-xs font-semibold text-emerald-500 mt-0.5">Co-Author & Editor</p>
+                        <p class="text-xs text-slate-500 dark:text-slate-400 mt-3 leading-relaxed">
+                            Practical guide to engineering multi-agent systems, memory layers, and tool-augmented autonomous models.
+                        </p>
+                    </div>
+                    <button onclick="triggerDownload('Book_Agentic_AI.pdf')" class="mt-6 w-full py-2.5 rounded-xl bg-slate-100 dark:bg-slate-800 hover:bg-slate-200 text-xs font-bold text-slate-800 dark:text-slate-200 transition flex items-center justify-center gap-2">
+                        <i class="fa-solid fa-file-pdf"></i> Download Sample PDF
+                    </button>
+                </div>
+
+            </div>
+        </section>
+
+        <!-- TAB 4: RESOURCES -->
+        <section id="tab-resources" class="tab-content hidden transition-all duration-300 space-y-6">
+            <div class="bg-white dark:bg-slate-900 p-6 rounded-3xl border border-slate-200 dark:border-slate-800">
+                <h1 class="text-2xl font-bold font-serif text-slate-900 dark:text-white">Academic Resources & Research Output</h1>
+                <p class="text-xs text-slate-500 mt-1">Access publications, patents, lab repositories, and student projects.</p>
+            </div>
+
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                
+                <!-- Published Patents -->
+                <div class="bg-white dark:bg-slate-900 p-6 rounded-3xl border border-slate-200 dark:border-slate-800 shadow-sm space-y-4">
+                    <h3 class="font-bold text-base text-slate-900 dark:text-white flex items-center gap-2 border-b border-slate-100 dark:border-slate-800 pb-3">
+                        <i class="fa-solid fa-lightbulb text-brand-gold"></i> Published Patents
+                    </h3>
+                    <ul class="space-y-3 text-xs">
+                        <li class="p-3 rounded-xl bg-slate-50 dark:bg-slate-800/40">
+                            <span class="font-bold text-slate-900 dark:text-white block">System for Real-Time SQL Injection Mitigation using BERT Architecture</span>
+                            <span class="text-slate-400">Patent Ref: 20233109823 • Published 2023</span>
+                        </li>
+                        <li class="p-3 rounded-xl bg-slate-50 dark:bg-slate-800/40">
+                            <span class="font-bold text-slate-900 dark:text-white block">Quantum-Resistant Blockchain Cryptographic Handshake Protocol</span>
+                            <span class="text-slate-400">Patent Ref: 20224104512 • Published 2022</span>
+                        </li>
+                    </ul>
+                </div>
+
+                <!-- Laboratory Workspaces -->
+                <div class="bg-white dark:bg-slate-900 p-6 rounded-3xl border border-slate-200 dark:border-slate-800 shadow-sm space-y-4">
+                    <h3 class="font-bold text-base text-slate-900 dark:text-white flex items-center gap-2 border-b border-slate-100 dark:border-slate-800 pb-3">
+                        <i class="fa-solid fa-flask text-brand-500"></i> Laboratory Workspaces
+                    </h3>
+                    <ul class="space-y-3 text-xs">
+                        <li class="flex items-center justify-between p-3 rounded-xl bg-slate-50 dark:bg-slate-800/40">
+                            <div>
+                                <span class="font-bold text-slate-900 dark:text-white block">IBM Qiskit Quantum Simulator Lab</span>
+                                <span class="text-slate-400">Jupyter Notebooks & Code Repositories</span>
+                            </div>
+                            <button onclick="triggerDownload('Qiskit_Lab_Code.zip')" class="px-3 py-1.5 rounded-lg bg-brand-500 text-white font-bold text-[10px]">
+                                Access Repo
+                            </button>
+                        </li>
+                        <li class="flex items-center justify-between p-3 rounded-xl bg-slate-50 dark:bg-slate-800/40">
+                            <div>
+                                <span class="font-bold text-slate-900 dark:text-white block">CISCO Cybersecurity Sandbox</span>
+                                <span class="text-slate-400">Virtual Network Topologies</span>
+                            </div>
+                            <button onclick="triggerDownload('Cisco_Sandbox.zip')" class="px-3 py-1.5 rounded-lg bg-brand-500 text-white font-bold text-[10px]">
+                                Access Repo
+                            </button>
+                        </li>
+                    </ul>
+                </div>
+
+            </div>
+        </section>
+
+        <!-- TAB 5: CONTACT -->
+        <section id="tab-contact" class="tab-content hidden transition-all duration-300 space-y-8">
+            <div class="grid grid-cols-1 lg:grid-cols-3 gap-8">
+                
+                <!-- Contact Details Card -->
+                <div class="bg-slate-900 text-white p-8 rounded-3xl border border-slate-800 shadow-xl space-y-6">
+                    <div>
+                        <h2 class="text-2xl font-bold font-serif text-white">Contact Information</h2>
+                        <p class="text-xs text-slate-400 mt-1">Feel free to reach out for research, academic, or consulting inquiries.</p>
+                    </div>
+
+                    <div class="space-y-4 text-xs">
+                        <div class="flex items-start gap-3">
+                            <i class="fa-solid fa-envelope text-brand-500 text-base mt-0.5"></i>
+                            <div>
+                                <span class="text-slate-400 block">Email Address</span>
+                                <a href="mailto:dr.ravinch@aceec.ac.in" class="font-bold text-white hover:underline">dr.ravinch@aceec.ac.in</a>
+                            </div>
+                        </div>
+
+                        <div class="flex items-start gap-3">
+                            <i class="fa-solid fa-location-dot text-brand-gold text-base mt-0.5"></i>
+                            <div>
+                                <span class="text-slate-400 block">Office Location</span>
+                                <span class="font-bold text-white">Department of CSE, Block B, Room 304</span>
+                                <span class="block text-slate-400 text-[11px] mt-0.5">ACE Engineering College, Ghatkesar, Hyderabad</span>
+                            </div>
+                        </div>
+
+                        <div class="flex items-start gap-3">
+                            <i class="fa-solid fa-clock text-emerald-500 text-base mt-0.5"></i>
+                            <div>
+                                <span class="text-slate-400 block">Office Consultation Hours</span>
+                                <span class="font-bold text-white">Tuesday & Thursday: 2:00 PM – 4:00 PM</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Interactive Form -->
+                <div class="lg:col-span-2 bg-white dark:bg-slate-900 p-8 rounded-3xl border border-slate-200 dark:border-slate-800 shadow-sm">
+                    <h2 class="text-xl font-bold font-serif mb-6 text-slate-900 dark:text-white">Send a Message</h2>
+                    <form onsubmit="handleContactSubmit(event)" class="space-y-4">
+                        <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                            <div>
+                                <label class="block text-xs font-bold text-slate-700 dark:text-slate-300 mb-1">Your Name</label>
+                                <input type="text" required class="w-full px-4 py-3 rounded-xl bg-slate-50 dark:bg-slate-800/50 border border-slate-200 dark:border-slate-700 text-xs focus:ring-2 focus:ring-brand-500 outline-none">
+                            </div>
+                            <div>
+                                <label class="block text-xs font-bold text-slate-700 dark:text-slate-300 mb-1">Your Email</label>
+                                <input type="email" required class="w-full px-4 py-3 rounded-xl bg-slate-50 dark:bg-slate-800/50 border border-slate-200 dark:border-slate-700 text-xs focus:ring-2 focus:ring-brand-500 outline-none">
+                            </div>
+                        </div>
+                        <div>
+                            <label class="block text-xs font-bold text-slate-700 dark:text-slate-300 mb-1">Subject</label>
+                            <input type="text" required class="w-full px-4 py-3 rounded-xl bg-slate-50 dark:bg-slate-800/50 border border-slate-200 dark:border-slate-700 text-xs focus:ring-2 focus:ring-brand-500 outline-none">
+                        </div>
+                        <div>
+                            <label class="block text-xs font-bold text-slate-700 dark:text-slate-300 mb-1">Message</label>
+                            <textarea rows="4" required class="w-full px-4 py-3 rounded-xl bg-slate-50 dark:bg-slate-800/50 border border-slate-200 dark:border-slate-700 text-xs focus:ring-2 focus:ring-brand-500 outline-none"></textarea>
+                        </div>
+                        <button type="submit" class="px-6 py-3 rounded-xl bg-brand-500 hover:bg-brand-600 text-white font-bold text-xs shadow-md transition">
+                            Submit Message
+                        </button>
+                    </form>
+                </div>
+
+            </div>
+        </section>
+
+    </main>
+
+    <!-- Footer -->
+    <footer class="mt-auto border-t border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900 py-6">
+        <div class="max-w-7xl mx-auto px-4 text-center text-xs text-slate-500 space-y-2">
+            <p>© 2026 Dr. N. Ch. Ravi • Professor of Computer Science & Engineering, ACE Engineering College.</p>
+            <p class="text-[10px] text-slate-400">All rights reserved. Built with Tailwind CSS and Inter UI.</p>
+        </div>
+    </footer>
+
+    <!-- Dynamic Syllabus Modal -->
+    <div id="syllabus-modal" class="fixed inset-0 z-50 bg-black/60 backdrop-blur-sm hidden flex items-center justify-center p-4">
+        <div class="bg-white dark:bg-slate-900 rounded-3xl max-w-lg w-full p-6 sm:p-8 space-y-4 shadow-2xl border border-slate-200 dark:border-slate-800 relative">
+            <button onclick="closeSyllabusModal()" class="absolute top-5 right-5 text-slate-400 hover:text-slate-600 dark:hover:text-white">
+                <i class="fa-solid fa-xmark text-xl"></i>
+            </button>
+            <h3 id="modal-title" class="text-xl font-bold font-serif text-slate-900 dark:text-white">Course Syllabus</h3>
+            <div id="modal-content" class="text-xs text-slate-600 dark:text-slate-300 space-y-2 max-h-80 overflow-y-auto pr-2">
+                <!-- Injected via JavaScript -->
+            </div>
+            <button onclick="closeSyllabusModal()" class="w-full py-2.5 rounded-xl bg-slate-100 dark:bg-slate-800 font-bold text-xs">Close</button>
+        </div>
+    </div>
+
+    <!-- Scripts -->
+    <script>
+        // Tab Switcher
+        function switchTab(tabId) {
+            document.querySelectorAll('.tab-content').forEach(el => el.classList.add('hidden'));
+            document.querySelectorAll('.nav-btn').forEach(btn => btn.classList.remove('bg-brand-500', 'text-white'));
+            
+            const selectedTab = document.getElementById(`tab-${tabId}`);
+            if (selectedTab) selectedTab.classList.remove('hidden');
+
+            const activeNav = document.getElementById(`nav-${tabId}`);
+            if (activeNav) activeNav.classList.add('bg-brand-500', 'text-white');
+        }
+
+        // Mobile Menu Toggle
+        const mobileMenuBtn = document.getElementById('mobile-menu-btn');
+        const mobileMenu = document.getElementById('mobile-menu');
+
+        mobileMenuBtn.addEventListener('click', () => {
+            mobileMenu.classList.toggle('hidden');
+        });
+
+        function toggleMobileMenu() {
+            mobileMenu.classList.add('hidden');
+        }
+
+        // Dark Theme Toggle
+        const themeToggle = document.getElementById('theme-toggle');
+        themeToggle.addEventListener('click', () => {
+            document.documentElement.classList.toggle('dark');
+        });
+
+        // Semester Filter
+        function filterSemester(sem) {
+            const cards = document.querySelectorAll('.course-card');
+            cards.forEach(card => {
+                if (sem === 'all' || card.getAttribute('data-semester') === sem) {
+                    card.classList.remove('hidden');
+                } else {
+                    card.classList.add('hidden');
+                }
+            });
+
+            document.querySelectorAll('.semester-filter-btn').forEach(btn => {
+                btn.classList.remove('bg-brand-500', 'text-white', 'shadow');
+                btn.classList.add('text-slate-600', 'dark:text-slate-400');
+            });
+
+            const activeFilterBtn = document.getElementById(`filter-${sem}`);
+            if (activeFilterBtn) {
+                activeFilterBtn.classList.add('bg-brand-500', 'text-white', 'shadow');
+                activeFilterBtn.classList.remove('text-slate-600', 'dark:text-slate-400');
+            }
+        }
+
+        // Syllabus Modal
+        const syllabusData = {
+            course1: {
+                title: "Quantum AI & Machine Learning",
+                modules: [
+                    "Module 1: Fundamentals of Quantum Computation & Quantum Logic Gates",
+                    "Module 2: Quantum Algorithms: Grover's, Shor's, and VQE",
+                    "Module 3: Quantum Machine Learning Architectures with IBM Qiskit",
+                    "Module 4: Hybrid Quantum-Classical Deep Neural Networks"
+                ]
+            },
+            course2: {
+                title: "Web Security & Blockchain",
+                modules: [
+                    "Module 1: Web Application Security & OWASP Vulnerabilities",
+                    "Module 2: Deep Learning Models (LSTM/BERT) for Attack Mitigation",
+                    "Module 3: Blockchain Fundamentals & Smart Contract Security",
+                    "Module 4: Decentralized Consensus Mechanics & Cryptographic Audit"
+                ]
+            },
+            course3: {
+                title: "AI Full Stack & Agentic Systems",
+                modules: [
+                    "Module 1: MERN Stack Architecture with Vector Databases",
+                    "Module 2: LangChain & Multi-Agent Orchestration Frameworks",
+                    "Module 3: Autonomous Agent Loops & Memory Persistence",
+                    "Module 4: Deploying Agentic Web Workflows on Cloud"
+                ]
+            },
+            course4: {
+                title: "VLSI Design & LLM Tuning",
+                modules: [
+                    "Module 1: CMOS Logic Circuits & Chip Microarchitecture",
+                    "Module 2: Hardware Description Languages (Verilog/VHDL)",
+                    "Module 3: QLoRA & LoRA Fine-Tuning for Specialized LLMs",
+                    "Module 4: Automated Verilog Code Generation using LLMs"
+                ]
+            },
+            course5: {
+                title: "Smart Grid & EV Systems",
+                modules: [
+                    "Module 1: Telemetry Protocols in IoT-Enabled Smart Grids",
+                    "Module 2: Microgrid Load Optimization Algorithms",
+                    "Module 3: EV Charging Network Architecture & Power Balancing",
+                    "Module 4: Edge AI Integration for Real-Time Power Grid Management"
+                ]
+            }
+        };
+
+        function openSyllabusModal(courseKey) {
+            const data = syllabusData[courseKey];
+            if (!data) return;
+
+            document.getElementById('modal-title').innerText = data.title;
+            const contentBox = document.getElementById('modal-content');
+            contentBox.innerHTML = data.modules.map(m => `<p class="p-2.5 rounded-lg bg-slate-50 dark:bg-slate-800 font-medium">${m}</p>`).join('');
+
+            document.getElementById('syllabus-modal').classList.remove('hidden');
+        }
+
+        function closeSyllabusModal() {
+            document.getElementById('syllabus-modal').classList.add('hidden');
+        }
+
+        // Action Placeholders
+        function triggerDownload(fileName) {
+            alert(`Initiating download for resource document: ${fileName}`);
+        }
+
+        function handleContactSubmit(event) {
+            event.preventDefault();
+            alert("Thank you! Your message has been sent successfully. Dr. Ravi's office will get back to you shortly.");
+            event.target.reset();
+        }
+
+        // Initialize default tab
+        switchTab('home');
+    </script>
+</body>
+</html>
