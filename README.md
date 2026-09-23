@@ -20,7 +20,5 @@ A modern, responsive, and high-performance academic portfolio and course hub bui
 
 ## 📁 Project Structure
 
-```text
-.
 ├── index.html          # Main HTML document containing structure, styles, and scripts
 └── README.md           # Project documentation
